@@ -1,0 +1,6 @@
+{
+    "DailyURL":"https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=",
+    "InfoURL":"http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=",
+    "SearchURL":"http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=",
+    "key":"03dd83501a4869fa8b2ceeab7d520f57"
+}
