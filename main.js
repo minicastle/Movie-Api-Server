@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT||3000;
 const Kobis = require('./Kobis.json');
+const KMDB = require('./KMDB.json');
 
 app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
@@ -21,6 +22,12 @@ app.get('/Kobis/movie/info',(req,res)=>{
 app.get('/Kobis/movie/daily',(req,res)=>{
     axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((response)=>{
         res.send(response.data.boxOfficeResult.dailyBoxOfficeList);
+    });
+});
+app.get('/KMDB/movie/info',(req,res)=>{
+    axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
+        console.log(response.data);
+        res.send(response.data);
     });
 });
 
