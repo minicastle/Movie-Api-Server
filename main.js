@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT||3000;
 const Kobis = require('./Kobis.json');
 const KMDB = require('./KMDB.json');
+const Naver = require('./Naver.json');
 
 app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
@@ -26,8 +27,18 @@ app.get('/Kobis/movie/daily',(req,res)=>{
 });
 app.get('/KMDB/movie/info',(req,res)=>{
     axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
-        console.log(response.data);
         res.send(response.data);
+    });
+});
+app.get('/Naver/movie/poster',(req,res)=>{
+    const option = {
+        'X-Naver-Client-Id': Naver.id,
+        'X-Naver-Client-Secret': Naver.key
+    }
+    axios.get(`${Naver.URL}&query=${'영화 '+req.query.title+' 포스터'}`,{headers:option})
+    .then((value)=>{
+        console.log(value.data.items[0].link);
+        res.send(value.data.items[0].link);
     });
 });
 
