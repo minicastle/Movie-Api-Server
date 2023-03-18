@@ -10,7 +10,7 @@ app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
 app.get('/Kobis/movie/search',(req,res)=>{
-    axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}`).then((response)=>{
+    axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((response)=>{
         res.send(response.data.movieListResult);
     });
 });
