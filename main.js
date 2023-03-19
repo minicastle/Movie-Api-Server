@@ -1,10 +1,24 @@
 const { default: axios } = require('axios');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT||3000;
 const Kobis = require('./Kobis.json');
 const KMDB = require('./KMDB.json');
 const Naver = require('./Naver.json');
+
+const whitelist = ["http://localhost:3000","https://minicastle.github.io/MovieInfo/"]
+const corsOptions = {
+    origin: function(origin,callback){
+        if(whitelist.indexOf(origin) !== -1){
+            callback(null,true);
+        }
+        else{
+            callback(new Error("Not Allowed Origin!"))
+        }
+    }
+}
+app.use(cors(corsOptions));
 
 app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
