@@ -7,16 +7,8 @@ const Kobis = require('./Kobis.json');
 const KMDB = require('./KMDB.json');
 const Naver = require('./Naver.json');
 
-const whitelist = ["http://localhost:3000","https://minicastle.github.io/MovieInfo/"]
 const corsOptions = {
-    origin: function(origin,callback){
-        if(whitelist.indexOf(origin) !== -1){
-            callback(null,true);
-        }
-        else{
-            callback(new Error("Not Allowed Origin!"))
-        }
-    }
+    origin: '*'
 }
 app.use(cors(corsOptions));
 
