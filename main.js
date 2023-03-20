@@ -72,7 +72,7 @@ app.get('/Naver/movie/cafe',(req,res)=>{
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
     }
-    axios.get(`${Naver.cafeURL}&query=${'영화 '+req.query.title}`,{headers:option})
+    axios.get(`${Naver.cafeURL}&query=${'영화 후기 '+req.query.title}`,{headers:option})
     .then((value)=>{
         res.send(value.data.items);
     });
