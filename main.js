@@ -60,9 +60,21 @@ app.get('/Naver/movie/poster',(req,res)=>{
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
     }
-    axios.get(`${Naver.URL}&query=${'영화 '+req.query.title+' 포스터'}`,{headers:option})
+    axios.get(`${Naver.posterURL}&query=${'영화 '+req.query.title+' 포스터'}`,{headers:option})
     .then((value)=>{
         res.send(value.data.items[0].link);
+    });
+});
+app.get('/Naver/movie/cafe',(req,res)=>{
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    const option = {
+        'X-Naver-Client-Id': Naver.id,
+        'X-Naver-Client-Secret': Naver.key
+    }
+    axios.get(`${Naver.cafeURL}&query=${'영화 '+req.query.title}`,{headers:option})
+    .then((value)=>{
+        res.send(value.data.items);
     });
 });
 
