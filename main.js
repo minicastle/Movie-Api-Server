@@ -12,18 +12,19 @@ app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
 app.get('/Kobis/movie/search',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((response)=>{
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(response.data.movieListResult);
     });
 });
 app.get('/Kobis/movie/info',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((response)=>{
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(response.data);
     });
 });
 app.get('/Kobis/movie/daily',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((response)=>{
         let valueData = response.data.boxOfficeResult.dailyBoxOfficeList;
         const option = {
@@ -37,36 +38,35 @@ app.get('/Kobis/movie/daily',(req,res)=>{
             });
         }
         setTimeout(()=>{
-            res.header("Access-Control-Allow-Origin", "*");
             res.send(valueData);
         },3000)
     });
 });
 app.get('/KMDB/movie/info',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(response.data);
     });
 });
 app.get('/Naver/movie/poster',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
     }
     axios.get(`${Naver.posterURL}&query=${'영화 '+req.query.title+' 포스터'}`,{headers:option})
     .then((value)=>{
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(value.data.items[0].link);
     });
 });
 app.get('/Naver/movie/cafe',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
     }
     axios.get(`${Naver.cafeURL}&query=${'영화 후기 '+req.query.title}`,{headers:option})
     .then((value)=>{
-        res.header("Access-Control-Allow-Origin", "*");
         res.send(value.data.items);
     });
 });
