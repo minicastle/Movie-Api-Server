@@ -63,6 +63,7 @@ app.get('/Naver/movie/cafe',cors(),(req,res)=>{
         res.send(value.data.items);
     });
 });
+app.use(cors());
 
 app.listen(PORT,()=>{
     console.log('Server Open!');
