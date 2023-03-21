@@ -7,20 +7,20 @@ const KMDB = require('./KMDB.json');
 const Naver = require('./Naver.json');
 const cors = require('cors');
 
-app.get('/',cors(),(req,res)=>{
+app.get('/',(req,res)=>{
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
-app.get('/Kobis/movie/search',cors(),(req,res)=>{
+app.get('/Kobis/movie/search',(req,res)=>{
     axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((response)=>{
         res.send(response.data.movieListResult);
     });
 });
-app.get('/Kobis/movie/info',cors(),(req,res)=>{
+app.get('/Kobis/movie/info',(req,res)=>{
     axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((response)=>{
         res.send(response.data);
     });
 });
-app.get('/Kobis/movie/daily',cors(),(req,res)=>{
+app.get('/Kobis/movie/daily',(req,res)=>{
     axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((response)=>{
         let valueData = response.data.boxOfficeResult.dailyBoxOfficeList;
         const option = {
@@ -38,12 +38,12 @@ app.get('/Kobis/movie/daily',cors(),(req,res)=>{
         },3000)
     });
 });
-app.get('/KMDB/movie/info',cors(),(req,res)=>{
+app.get('/KMDB/movie/info',(req,res)=>{
     axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
         res.send(response.data);
     });
 });
-app.get('/Naver/movie/poster',cors(),(req,res)=>{
+app.get('/Naver/movie/poster',(req,res)=>{
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
@@ -53,7 +53,7 @@ app.get('/Naver/movie/poster',cors(),(req,res)=>{
         res.send(value.data.items[0].link);
     });
 });
-app.get('/Naver/movie/cafe',cors(),(req,res)=>{
+app.get('/Naver/movie/cafe',(req,res)=>{
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
