@@ -7,7 +7,7 @@ const KMDB = require('./KMDB.json');
 const Naver = require('./Naver.json');
 const cors = require('cors');
 
-var whitelist = ['http://localhost:3000/', 'https://minicastle.github.io/MovieInfo/']
+var whitelist = ['http://localhost:3000/MovieInfo/', 'https://minicastle.github.io/MovieInfo/','https://movie-api-server.herokuapp.com/']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
