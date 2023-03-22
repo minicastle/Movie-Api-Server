@@ -1,38 +1,41 @@
-const axios = require('axios');
+const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT||3000;
 const Kobis = require('./Kobis.json');
 const KMDB = require('./KMDB.json');
 const Naver = require('./Naver.json');
-const cors = require('cors');
 
 app.get('/',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
 app.get('/Kobis/movie/search',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((response)=>{
-        res.send(response.data.movieListResult);
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((value)=>{
+        res.send(value.data.movieListResult);
     });
 });
 app.get('/Kobis/movie/info',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((response)=>{
-        res.send(response.data);
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((value)=>{
+        res.send(value.data);
     });
 });
 app.get('/Kobis/movie/daily',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((response)=>{
-        let valueData = response.data.boxOfficeResult.dailyBoxOfficeList;
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((value)=>{
+        let valueData = value.data.boxOfficeResult.dailyBoxOfficeList;
         const option = {
             'X-Naver-Client-Id': Naver.id,
             'X-Naver-Client-Secret': Naver.key
         };
-        for(let i = 0;i<valueData.length;i++){
-            axios.get(`${Naver.URL}&query=${'영화 '+valueData[i].movieNm+' 포스터'}`,{headers:option})
+        for(let i=0;i<10;i++){
+            axios.get(`${Naver.posterURL}&query=영화 ${valueData[i].movieNm} 포스터`,{headers:option})
             .then((value)=>{
                 valueData[i].poster = value.data.items[0].link
             });
@@ -43,13 +46,15 @@ app.get('/Kobis/movie/daily',(req,res)=>{
     });
 });
 app.get('/KMDB/movie/info',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
         res.send(response.data);
     });
 });
 app.get('/Naver/movie/poster',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
@@ -60,7 +65,8 @@ app.get('/Naver/movie/poster',(req,res)=>{
     });
 });
 app.get('/Naver/movie/cafe',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     const option = {
         'X-Naver-Client-Id': Naver.id,
         'X-Naver-Client-Secret': Naver.key
