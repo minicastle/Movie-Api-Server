@@ -11,35 +11,23 @@ const NaverOption = {
 };
 
 app.get('/',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
 app.get('/Kobis/movie/search',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((value)=>{
         res.send(value.data.movieListResult);
     });
 });
 app.get('/Kobis/movie/info',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((value)=>{
         res.send(value.data);
     });
 });
 app.get('/Kobis/movie/daily',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
 
     axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((value)=>{
         let valueData = value.data.boxOfficeResult.dailyBoxOfficeList;
@@ -55,29 +43,20 @@ app.get('/Kobis/movie/daily',(req,res)=>{
     });
 });
 app.get('/KMDB/movie/info',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     axios.get(`${KMDB.URL}${KMDB.Key}&title=${req.query.title}`).then((response)=>{
         res.send(response.data);
     });
 });
 app.get('/Naver/movie/poster',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     axios.get(`${Naver.posterURL}&query=${'영화 '+req.query.title+' 포스터'}`,{headers:NaverOption})
     .then((value)=>{
         res.send(value.data.items[0].link);
     });
 });
 app.get('/Naver/movie/cafe',(req,res)=>{
-    res.setHeader('Access-Control-Allow-origin', "*");
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept Authorization");
-    res.header("Access-Control-Allow-Methods","POST, PUT, PATCH, GET, DELETE");
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
     axios.get(`${Naver.cafeURL}&query=${'영화 후기 '+req.query.title}`,{headers:NaverOption})
     .then((value)=>{
         res.send(value.data.items);
