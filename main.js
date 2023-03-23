@@ -11,23 +11,23 @@ const NaverOption = {
 };
 
 app.get('/',(req,res)=>{
-    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com'])
     res.send(`<h2>Made By. MiniCastle</h2>`);
 });
 app.get('/Kobis/movie/search',(req,res)=>{
-    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000/MovieInfo/search'])
     axios.get(`${Kobis.SearchURL}${Kobis.Key}&movieNm=${req.query.movieNm}&itemPerPage=100`).then((value)=>{
         res.send(value.data.movieListResult);
     });
 });
 app.get('/Kobis/movie/info',(req,res)=>{
-    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000/MovieInfo/movie-info'])
     axios.get(`${Kobis.InfoURL}${Kobis.Key}&movieCd=${req.query.movieCd}`).then((value)=>{
         res.send(value.data);
     });
 });
 app.get('/Kobis/movie/daily',(req,res)=>{
-    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000'])
+    res.header('Access-Control-Allow-Origin',['https://movie-api-server.herokuapp.com','http://localhost:3000/MovieInfo'])
 
     axios.get(`${Kobis.DailyURL}${Kobis.Key}&targetDt=${req.query.targetDt}`).then((value)=>{
         let valueData = value.data.boxOfficeResult.dailyBoxOfficeList;
